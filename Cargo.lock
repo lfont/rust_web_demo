@@ -1,0 +1,129 @@
+[root]
+name = "rust_demo"
+version = "0.0.1"
+dependencies = [
+ "iron 0.0.1 (git+https://github.com/iron/iron.git#9caca478ae24fdbdbb9872b7680fdac65114272d)",
+ "mount 0.1.0 (git+https://github.com/iron/mount.git#87fc0533225ba04d69a879f70c4263db60222776)",
+ "router 0.1.0 (git+https://github.com/iron/router.git#b928fe53c6df14d15cd2ad0291d7ca9377266fc9)",
+]
+
+[[package]]
+name = "content_type"
+version = "0.1.0"
+source = "git+https://github.com/reem/rust-http-content-type.git#635e92b75e0f3f84a181bce37dbd2f22cfa8d730"
+dependencies = [
+ "http 0.1.0-pre (git+https://github.com/chris-morgan/rust-http.git#6fa402df447942c7909773c9ee8295d339b117f0)",
+]
+
+[[package]]
+name = "encoding"
+version = "0.1.0"
+source = "git+https://github.com/lifthrasiir/rust-encoding#35f0d70f65f73ba16f296f9ec675eddee661ba79"
+
+[[package]]
+name = "error"
+version = "0.0.0"
+source = "git+https://github.com/reem/rust-error.git#a35fdba6c684fd31fa6f73170c9ed6ad4c526784"
+dependencies = [
+ "typeable 0.0.1 (git+https://github.com/reem/rust-typeable.git#55154e1809db8ceec8f8519bdbb638c2fbd712f5)",
+]
+
+[[package]]
+name = "http"
+version = "0.1.0-pre"
+source = "git+https://github.com/chris-morgan/rust-http.git#6fa402df447942c7909773c9ee8295d339b117f0"
+dependencies = [
+ "openssl 0.0.0 (git+https://github.com/sfackler/rust-openssl.git#cd40d25cb5721064c5c2002c41a616d2dba7399a)",
+ "url 0.1.0 (git+https://github.com/servo/rust-url#d894135cac4e0085f41ba3a816240b792f9e6154)",
+]
+
+[[package]]
+name = "iron"
+version = "0.0.1"
+source = "git+https://github.com/iron/iron.git#9caca478ae24fdbdbb9872b7680fdac65114272d"
+dependencies = [
+ "content_type 0.1.0 (git+https://github.com/reem/rust-http-content-type.git#635e92b75e0f3f84a181bce37dbd2f22cfa8d730)",
+ "error 0.0.0 (git+https://github.com/reem/rust-error.git#a35fdba6c684fd31fa6f73170c9ed6ad4c526784)",
+ "http 0.1.0-pre (git+https://github.com/chris-morgan/rust-http.git#6fa402df447942c7909773c9ee8295d339b117f0)",
+ "plugin 0.0.0 (git+https://github.com/reem/rust-plugin.git#3f2a70b1d63b858858053bb89746f8e5726119a8)",
+ "typemap 0.0.0 (git+https://github.com/reem/rust-typemap.git#7619c3f0a6674fafbb9707dac951eab5ee3bae6d)",
+ "url 0.1.0 (git+https://github.com/servo/rust-url#d894135cac4e0085f41ba3a816240b792f9e6154)",
+]
+
+[[package]]
+name = "mount"
+version = "0.1.0"
+source = "git+https://github.com/iron/mount.git#87fc0533225ba04d69a879f70c4263db60222776"
+dependencies = [
+ "iron 0.0.1 (git+https://github.com/iron/iron.git#9caca478ae24fdbdbb9872b7680fdac65114272d)",
+ "trie 0.0.1 (git+https://github.com/michaelsproul/rust-generic-trie.git#3e7cf686d2c31c98dcea8baeb41289b28fb27b79)",
+ "typemap 0.0.0 (git+https://github.com/reem/rust-typemap.git#7619c3f0a6674fafbb9707dac951eab5ee3bae6d)",
+]
+
+[[package]]
+name = "openssl"
+version = "0.0.0"
+source = "git+https://github.com/sfackler/rust-openssl.git#cd40d25cb5721064c5c2002c41a616d2dba7399a"
+
+[[package]]
+name = "phantom"
+version = "0.0.0"
+source = "git+https://github.com/reem/rust-phantom.git#deb5acfed56d485bcb2d498da51477a12cb081c3"
+
+[[package]]
+name = "plugin"
+version = "0.0.0"
+source = "git+https://github.com/reem/rust-plugin.git#3f2a70b1d63b858858053bb89746f8e5726119a8"
+dependencies = [
+ "phantom 0.0.0 (git+https://github.com/reem/rust-phantom.git#deb5acfed56d485bcb2d498da51477a12cb081c3)",
+ "typemap 0.0.0 (git+https://github.com/reem/rust-typemap.git#7619c3f0a6674fafbb9707dac951eab5ee3bae6d)",
+]
+
+[[package]]
+name = "route-recognizer"
+version = "0.1.0"
+source = "git+https://github.com/conduit-rust/route-recognizer.rs.git#a7eee8dfd8c2cd02b1b650e4470a9a0b4bc306ee"
+
+[[package]]
+name = "router"
+version = "0.1.0"
+source = "git+https://github.com/iron/router.git#b928fe53c6df14d15cd2ad0291d7ca9377266fc9"
+dependencies = [
+ "http 0.1.0-pre (git+https://github.com/chris-morgan/rust-http.git#6fa402df447942c7909773c9ee8295d339b117f0)",
+ "iron 0.0.1 (git+https://github.com/iron/iron.git#9caca478ae24fdbdbb9872b7680fdac65114272d)",
+ "route-recognizer 0.1.0 (git+https://github.com/conduit-rust/route-recognizer.rs.git#a7eee8dfd8c2cd02b1b650e4470a9a0b4bc306ee)",
+ "typemap 0.0.0 (git+https://github.com/reem/rust-typemap.git#7619c3f0a6674fafbb9707dac951eab5ee3bae6d)",
+]
+
+[[package]]
+name = "trie"
+version = "0.0.1"
+source = "git+https://github.com/michaelsproul/rust-generic-trie.git#3e7cf686d2c31c98dcea8baeb41289b28fb27b79"
+
+[[package]]
+name = "typeable"
+version = "0.0.1"
+source = "git+https://github.com/reem/rust-typeable.git#55154e1809db8ceec8f8519bdbb638c2fbd712f5"
+
+[[package]]
+name = "typemap"
+version = "0.0.0"
+source = "git+https://github.com/reem/rust-typemap.git#7619c3f0a6674fafbb9707dac951eab5ee3bae6d"
+dependencies = [
+ "phantom 0.0.0 (git+https://github.com/reem/rust-phantom.git#deb5acfed56d485bcb2d498da51477a12cb081c3)",
+ "unsafe-any 0.1.0 (git+https://github.com/reem/rust-unsafe-any.git#e6e9d8771914b8ec0a100ddd0b235aa0e3f236d4)",
+]
+
+[[package]]
+name = "unsafe-any"
+version = "0.1.0"
+source = "git+https://github.com/reem/rust-unsafe-any.git#e6e9d8771914b8ec0a100ddd0b235aa0e3f236d4"
+
+[[package]]
+name = "url"
+version = "0.1.0"
+source = "git+https://github.com/servo/rust-url#d894135cac4e0085f41ba3a816240b792f9e6154"
+dependencies = [
+ "encoding 0.1.0 (git+https://github.com/lifthrasiir/rust-encoding#35f0d70f65f73ba16f296f9ec675eddee661ba79)",
+]
+

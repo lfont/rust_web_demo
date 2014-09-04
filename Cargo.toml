@@ -1,0 +1,21 @@
+[package]
+
+name = "rust_demo"
+version = "0.0.1"
+authors = ["Loïc Fontaine <loicfontaine@fastmail.fm>"]
+
+[dependencies.iron]
+
+git = "https://github.com/iron/iron.git"
+
+[dependencies.mount]
+
+git = "https://github.com/iron/mount.git"
+
+[dependencies.router]
+
+git = "https://github.com/iron/router.git"
+
+#[dependencies.html5ever]
+
+#git = "https://github.com/kmcallister/html5ever.git"
