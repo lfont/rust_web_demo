@@ -16,6 +16,10 @@ git = "https://github.com/iron/mount.git"
 
 git = "https://github.com/iron/router.git"
 
-#[dependencies.html5ever]
+[dependencies.html5ever]
 
-#git = "https://github.com/kmcallister/html5ever.git"
+git = "https://github.com/kmcallister/html5ever.git"
+
+[dependencies.rust-mustache]
+
+git = "https://github.com/tomaka/rust-mustache.git"

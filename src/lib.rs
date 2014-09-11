@@ -1,6 +1,10 @@
+extern crate serialize;
+extern crate http;
+extern crate typemap;
 extern crate iron;
 extern crate mount;
 extern crate router;
+extern crate mustache;
 
 mod site_router;
 mod api_router;
