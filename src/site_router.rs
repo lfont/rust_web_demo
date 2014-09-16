@@ -4,7 +4,9 @@ use iron::{ Request, Response, IronResult };
 use iron::status;
 use router::Router;
 
-use template_middleware::ViewData;
+use mustache::encoder::{ Encoder, Error };
+
+use template_middleware::Data;
 
 #[deriving(Encodable)]
 struct Index<'a> {
@@ -12,11 +14,8 @@ struct Index<'a> {
 }
 
 fn root_handler(req: &mut Request) -> IronResult<Response> {
-    let res = Response::with(status::Ok, ViewData {
-        name: "index",
-        data: Index { message: "hello" }
-    });
-
+    let res = Response::with(status::Ok, "index");
+    res.extensions.insert::<'a, Data, Encodable<Encoder<'a>, Error>>(Index { message: "hello" });
     Ok(res)
 }
 
