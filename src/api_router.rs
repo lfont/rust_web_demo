@@ -8,6 +8,6 @@ pub fn route() -> Router {
     router
 }
 
-fn root_handler(req: &mut Request) -> IronResult<Response> {
+fn root_handler(_: &mut Request) -> IronResult<Response> {
     Ok(Response::with(status::Ok, "hello, api"))
 }

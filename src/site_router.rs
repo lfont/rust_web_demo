@@ -1,22 +1,16 @@
-use serialize::Encodable;
-
 use iron::{ Request, Response, IronResult };
-use iron::status;
 use router::Router;
 
-use mustache::encoder::{ Encoder, Error };
+use mustache::MapBuilder;
 
-use template_middleware::Data;
+use template_middleware::view_response;
 
-#[deriving(Encodable)]
-struct Index<'a> {
-    message: &'a str
-}
+fn root_handler(_: &mut Request) -> IronResult<Response> {
+    let data = MapBuilder::new()
+        .insert_str("message", "hello")
+        .build();
 
-fn root_handler(req: &mut Request) -> IronResult<Response> {
-    let res = Response::with(status::Ok, "index");
-    res.extensions.insert::<'a, Data, Encodable<Encoder<'a>, Error>>(Index { message: "hello" });
-    Ok(res)
+    Ok(view_response("index".to_string(), data))
 }
 
 pub fn route() -> Router {

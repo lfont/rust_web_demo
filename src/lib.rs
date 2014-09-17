@@ -11,6 +11,7 @@ mod site_router;
 mod api_router;
 
 pub mod app {
+    use iron::AroundMiddleware;
     use mount::Mount;
 
     use template_middleware;

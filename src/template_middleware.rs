@@ -1,19 +1,17 @@
 use std::io::{ MemReader, MemWriter };
-use serialize::Encodable;
+use std::path::BytesContainer;
 
 use iron::{ AroundMiddleware, Handler, Request, Response, IronResult };
 use iron::status;
 use iron::headers::response;
 use iron::headers::content_type::MediaType;
 
-use typemap::{ TypeMap, Assoc };
+use typemap::{ Assoc, TypeMap };
 use http::headers::response::HeaderCollection;
 
 use mustache;
 use mustache::Context;
-use mustache::encoder::{ Encoder, Error };
-
-pub struct Data;
+use mustache::Data;
 
 pub struct Template {
     // should be a cache of templates
@@ -25,8 +23,6 @@ pub struct TemplateHandler<H: Handler> {
     handler: H
 }
 
-impl Assoc<'a, Encodable<Encoder<'a>, Error>> for Data {}
-
 impl Template {
     pub fn new() -> Template {
         let context = Context::new(Path::new("views"));
@@ -37,13 +33,15 @@ impl Template {
         }
     }
 
-    fn render_view<'a, D: Encodable<Encoder<'a>, Error>>(&self, name: String, data: D) -> MemReader {
+    fn render_view<'a>(&self, _: String, data: &Data<'a>) -> MemReader {
         let mut mw = MemWriter::new();
-        self.template.render(&mut mw, &data).ok().expect("The rendering of the template has failed!");
+        self.template.render_data(&mut mw, data);
 
         MemReader::new(mw.unwrap())
     }
 }
+
+impl<'a> Assoc<Data<'a>> for Template {}
 
 impl AroundMiddleware for Template {
     fn around<H>(self, handler: H) -> Box<Handler + Send + Sync> where H: Handler {
@@ -54,27 +52,39 @@ impl AroundMiddleware for Template {
     }
 }
 
-impl<H: Handler> TemplateHandler<H> {
-    fn html_response(view: MemReader) -> Response {
-        let mut headers = HeaderCollection::new();
-        headers.insert(response::ContentType(MediaType::new("text".to_string(), "html".to_string(), vec![])));
+pub fn view_response(name: String, data: Data<'static>) -> Response {
+    let reader = MemReader::new(name.container_into_owned_bytes());
 
-        Response {
-            headers: headers,
-            status: Some(status::Ok),
-            body: Some(box view as Box<Reader + Send>),
-            extensions: TypeMap::new()
-        }
+    let mut extensions = TypeMap::new();
+    extensions.insert::<Template, Data>(data);
+
+    Response {
+        headers: HeaderCollection::new(),
+        status: Some(status::Ok),
+        body: Some(box reader as Box<Reader + Send>),
+        extensions: extensions
+    }
+}
+
+fn html_response(view: MemReader) -> Response {
+    let mut headers = HeaderCollection::new();
+    headers.insert(response::ContentType(MediaType::new("text".to_string(), "html".to_string(), vec![])));
+
+    Response {
+        headers: headers,
+        status: Some(status::Ok),
+        body: Some(box view as Box<Reader + Send>),
+        extensions: TypeMap::new()
     }
 }
 
 impl<H: Handler> Handler for TemplateHandler<H> {
     fn call(&self, req: &mut Request) -> IronResult<Response> {
-        let res = self.handler.call(req);
-        let name = res.body.read_to_string().ok().expect("The view's name is not valid!");
-        let data = res.extenstions.find::<'a, Data, Encodable<Encoder<'a>, Error>>();
+        let res = self.handler.call(req).ok().expect("Cannot get the response!");
+        let name = res.body.expect("The body is not valid!").read_to_string().ok().expect("The view's name is not valid!");
+        let data = res.extensions.find::<Template, Data>().unwrap();
         let view = self.template.render_view(name, data);
-        TemplateHandler<H>::html_response(view)
+        Ok(html_response(view))
     }
 }
 
